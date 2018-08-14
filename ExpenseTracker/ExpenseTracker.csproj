@@ -33,9 +33,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ApplicationIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,17 +62,83 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Attributes\DataBaseValidateRuleAttribute.cs" />
+    <Compile Include="Attributes\DependsUponAttribute.cs" />
+    <Compile Include="Attributes\DependsUponPropertyAttribute.cs" />
+    <Compile Include="Attributes\RaiseCanExecuteDependsUponAttribute.cs" />
+    <Compile Include="Attributes\ValidateRuleAttribute.cs" />
+    <Compile Include="Attributes\ValidationAttribute.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Controls\BillListUserControl.xaml.cs">
+      <DependentUpon>BillListUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CategoryStatisticListUserControl.xaml.cs">
+      <DependentUpon>CategoryStatisticListUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RoundButton.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Models\BasicIdentities\Account.cs" />
+    <Compile Include="Models\BasicIdentities\IdentityPropertyChangedEventArgs.cs" />
+    <Compile Include="Models\DataBases\DataItemEventArgs.cs" />
+    <Compile Include="Models\BasicIdentities\BasicIdentity.cs" />
+    <Compile Include="Models\CategoryImages.cs" />
+    <Compile Include="Models\BasicIdentities\Bill.cs" />
+    <Compile Include="Models\DataBases\ChangedAction.cs" />
+    <Compile Include="Models\DataBases\DataBaseProvider.cs" />
+    <Compile Include="Models\AccountImages.cs" />
+    <Compile Include="Models\BasicIdentities\Expense.cs" />
+    <Compile Include="Models\DataBases\IDataBaseProvider.cs" />
+    <Compile Include="Models\DataBases\SummaryDataBase.cs" />
+    <Compile Include="Models\SelectedCategories\ISelectedExpenseManager.cs" />
+    <Compile Include="Models\SelectedCategories\ISelectedExpenseProvider.cs" />
+    <Compile Include="Models\SelectedCategories\SelectedExpenseManager.cs" />
+    <Compile Include="Models\XmlDocuments\XmlDataBaseDocument.cs" />
+    <Compile Include="Rules\DataBaseRules\DataBaseRule.cs" />
+    <Compile Include="Rules\RuleFactories\IRuleFactory.cs" />
+    <Compile Include="Rules\IRuleProvider.cs" />
+    <Compile Include="Rules\DataBaseRules\NotExceedSelectedItemValue.cs" />
+    <Compile Include="Rules\SimpleRules\NotExistRule.cs" />
+    <Compile Include="Rules\SimpleRules\NotEmptyRule.cs" />
+    <Compile Include="Rules\SimpleRules\NotIntegerRule.cs" />
+    <Compile Include="Rules\SimpleRules\NotNagativeRule.cs" />
+    <Compile Include="Rules\DataBaseRules\NotNegativeAffterAddRule.cs" />
+    <Compile Include="Rules\SimpleRules\NotSelectedRule.cs" />
+    <Compile Include="Rules\Rule.cs" />
+    <Compile Include="Rules\RuleFactories\RuleFactory.cs" />
+    <Compile Include="Rules\RuleProvider.cs" />
+    <Compile Include="Rules\SimpleRules\SimpleRule.cs" />
+    <Compile Include="Rules\ValidationErrorExeption.cs" />
+    <Compile Include="ViewModels\AccountViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModels\AccountsWindowViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModels\BillListViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModels\BillsWindowViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModels\BillViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModels\CatagoryStatisticViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModels\CategoryStatisticListViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModels\ExpenseLimit.cs" />
+    <Compile Include="ViewModels\ExpenseViewModels\ExpenseViewModel.cs" />
+    <Compile Include="ViewModels\ExpenseViewModels\ExpensesWindowViewModel.cs" />
+    <Compile Include="ViewModels\NotifyPropertyChangedViewModel.cs" />
+    <Compile Include="ViewModels\NotifyDataErrorViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelFactories\IViewModelFactory.cs" />
+    <Compile Include="ViewModels\ViewModelFactories\ViewModelFactory.cs" />
+    <Compile Include="Views\AccountsView.xaml.cs">
+      <DependentUpon>AccountsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BillsView.xaml.cs">
+      <DependentUpon>BillsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExpensesView.xaml.cs">
+      <DependentUpon>ExpensesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +158,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,5 +169,158 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Account.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\BillListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CategoryStatisticListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\ButtonCharacteristics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\ButtonTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\ErrorTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\WrappedListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AccountsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BillsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExpensesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Award.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Brush.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Car.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Checklist.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Compass.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CreditCard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Direction.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Eye.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Flask.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Internet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Jewelry.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Key.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Mail.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Mountain.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Phone.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Sales.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Wallet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationIcon.ico" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

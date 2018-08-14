@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:ExpenseTracker.Controls">
+    <Style x:Key="buttonStyle" TargetType="{x:Type controls:RoundButton}">
+        <Setter Property="Template" Value="{StaticResource buttonTemplate}"/>
+        <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
+        <Setter Property="EnableBackground" Value="{StaticResource enableButtonBackground}"/>
+        <Setter Property="EnableCornerColor" Value="{StaticResource enableButtonCorderColor}"/>
+        <Setter Property="EnableTextColor" Value="{StaticResource buttonTextColor}"/>
+        <Setter Property="ButtonBorderThickness" Value="{StaticResource normalThickness}"/>
+        <Setter Property="CornerRadius" Value="{StaticResource normalCornerRadius}"/>
+    </Style>
+    <Style x:Key="menuButtonStyle" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource buttonStyle}">
+        <Setter Property="Background" Value="{StaticResource menuButtonNormalColor}"/>
+        <Setter Property="MouseOverBackground" Value="{StaticResource menuButtonMouseOverBackground}"/>
+        <Setter Property="MousePressedBackground" Value="{StaticResource menuButtonMousePressedBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource menuButtonCorderColor}"/>
+    </Style>
+    <Style x:Key="upMenuButton" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource menuButtonStyle}">
+        <Setter Property="ButtonBorderThickness" Value="3,3,3,1"/>
+        <Setter Property="CornerRadius" Value="7,7,0,0"/>
+    </Style>
+    <Style x:Key="middleMenuButton" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource menuButtonStyle}">
+        <Setter Property="ButtonBorderThickness" Value="3,1,3,1"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    <Style x:Key="downMenuButton" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource menuButtonStyle}">
+        <Setter Property="ButtonBorderThickness" Value="3,1,3,3"/>
+        <Setter Property="CornerRadius" Value="0,0,7,7"/>
+    </Style>
+    <Style x:Key="addButtonStyle" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource buttonStyle}">
+        <Setter Property="Background" Value="{StaticResource addButtonNormalBackground}"/>
+        <Setter Property="MouseOverBackground" Value="{StaticResource addButtonMouseOverBackground}"/>
+        <Setter Property="MousePressedBackground" Value="{StaticResource addButtonMousePressedBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource addButtonCorderColor}"/>
+    </Style>
+    <Style x:Key="editButtonStyle" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource buttonStyle}">
+        <Setter Property="Background" Value="{StaticResource editButtonNormalBackground}"/>
+        <Setter Property="MouseOverBackground" Value="{StaticResource editButtonMouseOverBackground}"/>
+        <Setter Property="MousePressedBackground" Value="{StaticResource editButtonMousePressedBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource editButtonCorderColor}"/>
+    </Style>
+    <Style x:Key="deleteButtonStyle" TargetType="{x:Type controls:RoundButton}" BasedOn="{StaticResource buttonStyle}">
+        <Setter Property="Background" Value="{StaticResource deleteButtonNormalBackground}"/>
+        <Setter Property="MouseOverBackground" Value="{StaticResource deleteButtonMouseOverBackground}"/>
+        <Setter Property="MousePressedBackground" Value="{StaticResource deleteButtonMousePressedBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource deleteButtonCorderColor}"/>
+    </Style>
+</ResourceDictionary>
