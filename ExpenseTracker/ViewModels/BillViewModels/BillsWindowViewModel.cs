@@ -208,7 +208,6 @@ namespace ExpenseTracker.ViewModels.BillViewModels
             {
                 addBillCommand.RaiseCanExecuteChanged();
             }
-
         }
     }
 }
