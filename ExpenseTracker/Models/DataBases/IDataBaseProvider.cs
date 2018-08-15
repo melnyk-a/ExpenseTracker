@@ -10,8 +10,8 @@ namespace ExpenseTracker.Models.Databases
         event EventHandler<DataItemEventArgs<T>> DatabaseChanged;
 
         void AddItem(T item);
-        T Find(string itemName);
         bool Contains(string itemName);
+        T Find(string itemName);
         void DeleteItem(T item);
     }
 }

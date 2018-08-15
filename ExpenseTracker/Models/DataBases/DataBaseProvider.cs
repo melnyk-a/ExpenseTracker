@@ -22,6 +22,22 @@ namespace ExpenseTracker.Models
             OnDataBaseChange(new DataItemEventArgs<T>(item, ChangedAction.Add));
         }
 
+        public bool Contains(string itemName)
+        {
+            bool isContain = false;
+
+            foreach (T item in items)
+            {
+                if (item.Name.Equals(itemName))
+                {
+                    isContain = true;
+                    break;
+                }
+            }
+
+            return isContain;
+        }
+
         public void DeleteItem(T item)
         {
             foreach (T currentItem in items)
@@ -52,22 +68,6 @@ namespace ExpenseTracker.Models
             }
 
             return findedAccount;
-        }
-
-        public bool Contains(string itemName)
-        {
-            bool isContain = false;
-
-            foreach (T item in items)
-            {
-                if (item.Name.Equals(itemName))
-                {
-                    isContain = true;
-                    break;
-                }
-            }
-
-            return isContain;
         }
 
         private void OnDataBaseChange(DataItemEventArgs<T> e)

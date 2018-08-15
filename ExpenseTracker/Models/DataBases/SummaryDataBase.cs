@@ -34,7 +34,7 @@ namespace ExpenseTracker.Models.Databases
 
             billProvider.DatabaseChanged += (sender, e) =>
             {
-                if(e.ChangedAction==ChangedAction.Add)
+                if (e.ChangedAction == ChangedAction.Add)
                 {
                     var account = accountProvider.Find(e.DataItem.AccountName);
                     account.Value = account.Value - Convert.ToInt32(e.DataItem.Value);
@@ -54,7 +54,7 @@ namespace ExpenseTracker.Models.Databases
 
         private void DeleteBillByAccount(string billName)
         {
-            for (int i = billProvider.Items.Count-1; i>=0; --i)
+            for (int i = billProvider.Items.Count - 1; i >= 0; --i)
             {
                 if (billProvider.Items[i].AccountName == billName)
                 {
