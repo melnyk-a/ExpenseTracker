@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExpenseTracker.Models.BasicIdentities
+﻿namespace ExpenseTracker.Models.BasicIdentities
 {
     internal sealed class Account : BasicIdentity
     {

@@ -1,5 +1,4 @@
-﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.Databases;
+﻿using ExpenseTracker.Models.Databases;
 using System;
 using System.Collections.Generic;
 using System.IO;

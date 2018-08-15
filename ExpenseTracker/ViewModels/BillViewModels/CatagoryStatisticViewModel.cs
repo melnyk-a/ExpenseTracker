@@ -1,7 +1,6 @@
 ﻿using ExpenseTracker.Attributes;
 using ExpenseTracker.Models.BasicIdentities;
 using ExpenseTracker.Models.Databases;
-using ExpenseTracker.ViewModels.BillViewModels;
 
 namespace ExpenseTracker.ViewModels.BillViewModels
 {

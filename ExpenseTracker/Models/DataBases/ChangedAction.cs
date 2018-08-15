@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.Models.DataBases
+﻿namespace ExpenseTracker.Models.Databases
 {
     internal enum ChangedAction
     {
