@@ -16,7 +16,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
         private readonly Command setLimitCommand;
 
         private int limit;
-        private string settedlimit = string.Empty;
+        private string setlimit = string.Empty;
 
         public ExpenseViewModel(IDatabaseProvider<Expense> expenseProvider, 
                                 IRuleProvider ruleProvider, 
@@ -27,7 +27,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
             this.expenseProvider = expenseProvider;
             limit = expense.Value;
 
-            setLimitCommand = new DelegateCommand(SetLimit, () => CanSet);
+            setLimitCommand = new DelegateCommand(SetLimitForExpense, () => CanSet);
             deleteExpanseCommand = new DelegateCommand(Delete);
 
             expenseProvider.DatabaseChanged += (sender, e) =>
@@ -42,7 +42,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
             };
         }
 
-        [DependsUponProperty(nameof(SettedLimit))]
+        [DependsUponProperty(nameof(SetLimit))]
         [DependsUponProperty(nameof(HasErrors))]
         public bool CanSet => !HasErrors;
 
@@ -63,12 +63,12 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
 
         [ValidateRule("NotIntegerRule")]
         [ValidateRule("NotNegativeAffterAddRule", DependentDatabaseItemName = nameof(Name))]
-        public string SettedLimit
+        public string SetLimit
         {
-            get => settedlimit;
+            get => setlimit;
             set
             {
-                SetProperty(ref settedlimit, value);
+                SetProperty(ref setlimit, value);
             }
         }
 
@@ -80,12 +80,12 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
             expenseProvider.DeleteItem(new Expense(Name));
         }
 
-        public void SetLimit()
+        public void SetLimitForExpense()
         {
             Validate();
             if (CanSet)
             {
-                expenseProvider.Find(expense.Name).Value = Convert.ToInt32(settedlimit);
+                expenseProvider.Find(expense.Name).Value = Convert.ToInt32(setlimit);
             }
             else
             {

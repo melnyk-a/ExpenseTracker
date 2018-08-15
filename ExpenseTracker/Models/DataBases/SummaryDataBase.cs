@@ -83,10 +83,10 @@ namespace ExpenseTracker.Models.Databases
 
         private void ReturnFunds(string accountName, int value)
         {
-            var finded = accountProvider.Find(accountName);
-            if (finded != null)
+            var found = accountProvider.Find(accountName);
+            if (found != null)
             {
-                finded.Value = finded.Value + value;
+                found.Value = found.Value + value;
             }
         }
     }

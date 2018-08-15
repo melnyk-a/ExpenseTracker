@@ -19,10 +19,10 @@ namespace ExpenseTracker.Rules.DataBaseRules
 
         public override void Check(string value, string name)
         {
-            T finded = accountProvider.Find(name);
-            if (finded != null)
+            T found = accountProvider.Find(name);
+            if (found != null)
             {
-                int result = (finded).Value - Convert.ToInt32(value);
+                int result = (found).Value - Convert.ToInt32(value);
                 if (result < 0)
                 {
                     throw new ValidationErrorExeption("Specified sum exceeds selected account funds.");

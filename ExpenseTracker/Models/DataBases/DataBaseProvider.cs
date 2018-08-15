@@ -56,18 +56,18 @@ namespace ExpenseTracker.Models
 
         public T Find(string itemName)
         {
-            T findedAccount = null;
+            T foundAccount = null;
 
             foreach (T account in items)
             {
                 if (account.Name.Equals(itemName))
                 {
-                    findedAccount = account;
+                    foundAccount = account;
                     break;
                 }
             }
 
-            return findedAccount;
+            return foundAccount;
         }
 
         private void OnDataBaseChange(DataItemEventArgs<T> e)
