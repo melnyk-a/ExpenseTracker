@@ -15,6 +15,6 @@ namespace ExpenseTracker.Models
             accountImages.Add(@"..\..\Resources\Wallet.png");
         }
 
-        public static IEnumerable<string> Pathes => accountImages;
+        public static IEnumerable<string> Paths => accountImages;
     }
 }

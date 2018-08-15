@@ -1,5 +1,5 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,21 +11,21 @@ namespace ExpenseTracker.Models.XmlDocuments
     internal sealed class XmlDataBaseDocument<T>
     {
         private readonly string constructorAttributeName = "Name";
-        private readonly IDataBaseProvider<T> dataBaseProvider;
+        private readonly IDatabaseProvider<T> databaseProvider;
         private readonly string fileName;
         private readonly string genericName;
         private readonly Type genericType;
         private readonly Type type;
 
-        public XmlDataBaseDocument(IDataBaseProvider<T> dataBaseProvider)
+        public XmlDataBaseDocument(IDatabaseProvider<T> dataBaseProvider)
         {
-            this.dataBaseProvider = dataBaseProvider;
+            this.databaseProvider = dataBaseProvider;
             type = dataBaseProvider.GetType();
             genericType = type.GenericTypeArguments[0];
             genericName = genericType.Name;
             fileName = $"{type.Name.Remove(type.Name.Length - 2)}{genericName}.xml";
 
-            dataBaseProvider.DataBaseChanged += (sender, e) =>
+            dataBaseProvider.DatabaseChanged += (sender, e) =>
               {
                   Save();
               };
@@ -69,7 +69,7 @@ namespace ExpenseTracker.Models.XmlDocuments
 
                 foreach (var item in accountsToLoad)
                 {
-                    dataBaseProvider.AddItem(item);
+                    databaseProvider.AddItem(item);
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace ExpenseTracker.Models.XmlDocuments
             XmlElement collection = document.CreateElement("Collection");
 
             PropertyInfo[] properties = genericType.GetProperties();
-            foreach (var accountSave in dataBaseProvider.Items)
+            foreach (var accountSave in databaseProvider.Items)
             {
                 XmlElement account = document.CreateElement(genericName);
                 foreach (PropertyInfo property in properties)

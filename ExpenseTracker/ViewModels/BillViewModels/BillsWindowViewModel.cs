@@ -1,7 +1,7 @@
 ﻿using ExpenseTracker.Attributes;
 using ExpenseTracker.Commands;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Rules;
 using ExpenseTracker.ViewModels.ViewModelFactories;
 using System;
@@ -16,7 +16,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
         private readonly ObservableCollection<Account> accountIcons = new ObservableCollection<Account>();
         private readonly Command addBillCommand;
         private readonly ViewModel billListViewModel;
-        private readonly IDataBaseProvider<Bill> billProvider;
+        private readonly IDatabaseProvider<Bill> billProvider;
         private readonly ViewModel categoryStatisticListViewModel;
         private readonly ObservableCollection<Expense> expenseIcons = new ObservableCollection<Expense>();
         private readonly IViewModelFactory viewModelFactory;
@@ -27,29 +27,29 @@ namespace ExpenseTracker.ViewModels.BillViewModels
         private Expense selectedExpense = null;
         private string sum = string.Empty;
        
-        public BillsWindowViewModel(SummaryDataBase dataBase,
+        public BillsWindowViewModel(SummaryDatabase database,
                                     IRuleProvider ruleProvider,
                                     IViewModelFactory viewModelFactory) :
             base(ruleProvider)
         {
             this.viewModelFactory = viewModelFactory;
-            billProvider = dataBase.BillProvider;
+            billProvider = database.BillProvider;
             billListViewModel = viewModelFactory.CreateBillListViewModel();
             categoryStatisticListViewModel = viewModelFactory.CreateCategoryStatisticListViewModel();
 
             addBillCommand = new DelegateCommand(AddBill, () => CanAdd);
 
-            foreach (Account account in dataBase.AccountProvider.Items)
+            foreach (Account account in database.AccountProvider.Items)
             {
                 accountIcons.Add(account);
             }
 
-            foreach (Expense expense in dataBase.ExpenseProvider.Items)
+            foreach (Expense expense in database.ExpenseProvider.Items)
             {
                 expenseIcons.Add(expense);
             }
 
-            dataBase.AccountProvider.DataBaseChanged += (sender, e) =>
+            database.AccountProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Add)
                 {
@@ -72,7 +72,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
                 }
             };
 
-            dataBase.ExpenseProvider.DataBaseChanged += (sender, e) =>
+            database.ExpenseProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Add)
                 {
@@ -183,7 +183,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
         [DependsUponProperty(nameof(SelectedAccount))]
         [ValidateRule("NotIntegerRule")]
         [ValidateRule("NotNegativeRule", Name = "Bill sum")]
-        [ValidateRule("NotExceedSelectedItemValue", DependentDataBaseItemName = nameof(SelectedAccountName))]
+        [ValidateRule("NotExceedSelectedItemValue", DependentDatabaseItemName = nameof(SelectedAccountName))]
         public string Sum
         {
             get => sum;

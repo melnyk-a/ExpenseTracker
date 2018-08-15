@@ -2,7 +2,7 @@
 using ExpenseTracker.Commands;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Rules;
 using ExpenseTracker.ViewModels.ViewModelFactories;
 using System.Collections.Generic;
@@ -14,14 +14,14 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
     {
         private readonly Command addExpanseCommand;
         private readonly ObservableCollection<ViewModel> expenseList = new ObservableCollection<ViewModel>();
-        private readonly IDataBaseProvider<Expense> expenseProvider;
+        private readonly IDatabaseProvider<Expense> expenseProvider;
         private readonly ObservableCollection<string> icons = new ObservableCollection<string>();
         private readonly IViewModelFactory viewModelFactory;
 
         private string name = string.Empty;
         private object selectedIcon;
 
-        public ExpensesWindowViewModel(IDataBaseProvider<Expense> expenseProvider, 
+        public ExpensesWindowViewModel(IDatabaseProvider<Expense> expenseProvider, 
                                        IRuleProvider ruleProvider, 
                                        IViewModelFactory viewModelFactory) :
             base(ruleProvider)
@@ -34,7 +34,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
 
             addExpanseCommand = new DelegateCommand(AddExpense, () => CanAdd);
 
-            expenseProvider.DataBaseChanged += (sender, e) =>
+            expenseProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Add)
                 {
@@ -107,7 +107,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
 
         private void LoadExpenseIcons()
         {
-            foreach (string path in CategoryImages.Pathes)
+            foreach (string path in CategoryImages.Paths)
             {
                 icons.Add(path);
             }

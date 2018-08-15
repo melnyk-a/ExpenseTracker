@@ -1,7 +1,7 @@
 ﻿using ExpenseTracker.Attributes;
 using ExpenseTracker.Models.BasicIdentities;
 using ExpenseTracker.Rules;
-using ExpenseTracker.Rules.DaraBaseRules;
+using ExpenseTracker.Rules.DataBaseRules;
 using ExpenseTracker.Rules.SimpleRules;
 using ExpenseTracker.ValidationRules;
 using System;
@@ -135,13 +135,13 @@ namespace ExpenseTracker.ViewModels
                             {
                                 simpleRule.Check(stringValue);
                             }
-                            else if (rule is DataBaseRule<T> dataBaseRule && attribute.DependentDataBaseItemName != null)
+                            else if (rule is DatabaseRule<T> dataBaseRule && attribute.DependentDatabaseItemName != null)
                             {
-                                PropertyInfo property = GetType().GetProperty(attribute.DependentDataBaseItemName);
+                                PropertyInfo property = GetType().GetProperty(attribute.DependentDatabaseItemName);
                                 dataBaseRule.Check(stringValue, (string)property.GetValue(this));
                             }
 
-                            var testString = rule is DataBaseRule<T>;
+                            var testString = rule is DatabaseRule<T>;
                             ClearError(appliedProperty.Name);
                         }
                         catch (ValidationErrorExeption e)

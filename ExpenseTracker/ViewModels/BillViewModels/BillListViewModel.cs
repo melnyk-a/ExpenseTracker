@@ -1,5 +1,5 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Models.SelectedCategories;
 using ExpenseTracker.ViewModels.ViewModelFactories;
 using System.Collections.Generic;
@@ -11,13 +11,13 @@ namespace ExpenseTracker.ViewModels.BillViewModels
     internal sealed class BillListViewModel : NotifyPropertyChangedViewModel
     {
         private readonly ObservableCollection<ViewModel> allBills = new ObservableCollection<ViewModel>();
-        private readonly IDataBaseProvider<Bill> billProvider;
+        private readonly IDatabaseProvider<Bill> billProvider;
         private readonly ISelectedExpenseProvider selectedExpense;
         private readonly IViewModelFactory viewModelFactory;
 
         private ObservableCollection<ViewModel> selectedBills = new ObservableCollection<ViewModel>();
        
-        public BillListViewModel(IDataBaseProvider<Bill> billProvider, 
+        public BillListViewModel(IDatabaseProvider<Bill> billProvider, 
                                  IViewModelFactory viewModelFactory, 
                                  ISelectedExpenseProvider selectedExpense
         )
@@ -33,7 +33,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
                   OnPropertyChanged(new PropertyChangedEventArgs(nameof(Bills)));
               };
 
-            billProvider.DataBaseChanged += (sender, e) =>
+            billProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Add)
                 {

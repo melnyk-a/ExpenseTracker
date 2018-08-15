@@ -1,7 +1,7 @@
 ﻿using ExpenseTracker.Attributes;
 using ExpenseTracker.Commands;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Rules;
 using System;
 using System.Windows.Input;
@@ -12,13 +12,13 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
     {
         private readonly Command deleteExpanseCommand;
         private readonly Expense expense;
-        private readonly IDataBaseProvider<Expense> expenseProvider;
+        private readonly IDatabaseProvider<Expense> expenseProvider;
         private readonly Command setLimitCommand;
 
         private int limit;
         private string settedlimit = string.Empty;
 
-        public ExpenseViewModel(IDataBaseProvider<Expense> expenseProvider, 
+        public ExpenseViewModel(IDatabaseProvider<Expense> expenseProvider, 
                                 IRuleProvider ruleProvider, 
                                 Expense expense) :
             base(ruleProvider)
@@ -30,7 +30,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
             setLimitCommand = new DelegateCommand(SetLimit, () => CanSet);
             deleteExpanseCommand = new DelegateCommand(Delete);
 
-            expenseProvider.DataBaseChanged += (sender, e) =>
+            expenseProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Update)
                 {
@@ -62,7 +62,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
         public string Name => expense.Name;
 
         [ValidateRule("NotIntegerRule")]
-        [ValidateRule("NotNegativeAffterAddRule", DependentDataBaseItemName = nameof(Name))]
+        [ValidateRule("NotNegativeAffterAddRule", DependentDatabaseItemName = nameof(Name))]
         public string SettedLimit
         {
             get => settedlimit;

@@ -1,5 +1,5 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Models.SelectedCategories;
 using ExpenseTracker.Rules;
 using ExpenseTracker.Rules.RuleFactories;
@@ -14,59 +14,59 @@ namespace ExpenseTracker.ViewModels.ViewModelFactories
         private readonly IRuleProvider accountRuleProvider;
         private readonly IRuleProvider expenseRuleProvider;
         private readonly SelectedExpenseManager selectedExpense = new SelectedExpenseManager();
-        private readonly SummaryDataBase summaryDataBase;
+        private readonly SummaryDatabase summaryDatabase;
 
-        public ViewModelFactory(SummaryDataBase summaryDataBase)
+        public ViewModelFactory(SummaryDatabase summaryDatabase)
         {
-            this.summaryDataBase = summaryDataBase;
+            this.summaryDatabase = summaryDatabase;
 
-            accountRuleProvider = new RuleProvider(new RuleFactory<Account>(summaryDataBase.AccountProvider));
-            expenseRuleProvider = new RuleProvider(new RuleFactory<Expense>(summaryDataBase.ExpenseProvider));
+            accountRuleProvider = new RuleProvider(new RuleFactory<Account>(summaryDatabase.AccountProvider));
+            expenseRuleProvider = new RuleProvider(new RuleFactory<Expense>(summaryDatabase.ExpenseProvider));
         }
 
         public ViewModel CreateAccountViewModel(Account account)
         {
-            return new AccountViewModel(summaryDataBase.AccountProvider, accountRuleProvider, account);
+            return new AccountViewModel(summaryDatabase.AccountProvider, accountRuleProvider, account);
         }
 
         public ViewModel CreateAccountsWindowViewModel()
         {
-            return new AccountsWindowViewModel(summaryDataBase.AccountProvider, accountRuleProvider, this);
+            return new AccountsWindowViewModel(summaryDatabase.AccountProvider, accountRuleProvider, this);
         }
 
         public ViewModel CreateBillListViewModel()
         {
-            return new BillListViewModel(summaryDataBase.BillProvider, this, selectedExpense);
+            return new BillListViewModel(summaryDatabase.BillProvider, this, selectedExpense);
         }
 
         public ViewModel CreateBillViewModel(Bill bill)
         {
-            return new BillViewModel(summaryDataBase.BillProvider, bill);
+            return new BillViewModel(summaryDatabase.BillProvider, bill);
         }
 
         public ViewModel CreateBillsWindowViewModel()
         {
-            return new BillsWindowViewModel(summaryDataBase, accountRuleProvider, this);
+            return new BillsWindowViewModel(summaryDatabase, accountRuleProvider, this);
         }
 
         public ViewModel CreateCategoryStatisticListViewModel()
         {
-            return new CategoryStatisticListViewModel(summaryDataBase.ExpenseProvider, this, selectedExpense);
+            return new CategoryStatisticListViewModel(summaryDatabase.ExpenseProvider, this, selectedExpense);
         }
 
         public ViewModel CreateCategoryStatisticViewModel(Expense expense)
         {
-            return new CatagoryStatisticViewModel(summaryDataBase.BillProvider, expense);
+            return new CatagoryStatisticViewModel(summaryDatabase.BillProvider, expense);
         }
 
         public ViewModel CreateExpenseViewModel(Expense expense)
         {
-            return new ExpenseViewModel(summaryDataBase.ExpenseProvider, expenseRuleProvider, expense);
+            return new ExpenseViewModel(summaryDatabase.ExpenseProvider, expenseRuleProvider, expense);
         }
 
         public ViewModel CreateExpensesWindowViewModel()
         {
-            return new ExpensesWindowViewModel(summaryDataBase.ExpenseProvider, expenseRuleProvider, this);
+            return new ExpensesWindowViewModel(summaryDatabase.ExpenseProvider, expenseRuleProvider, this);
         }
     }
 }

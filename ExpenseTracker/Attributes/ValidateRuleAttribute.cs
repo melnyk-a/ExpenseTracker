@@ -12,7 +12,7 @@ namespace ExpenseTracker.Attributes
             this.rule = rule;
         }
 
-        public string DependentDataBaseItemName { get; set; }
+        public string DependentDatabaseItemName { get; set; }
 
         public string Rule => rule;
     }

@@ -1,17 +1,17 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.ValidationRules;
 using System;
 
-namespace ExpenseTracker.Rules.DaraBaseRules
+namespace ExpenseTracker.Rules.DataBaseRules
 {
     internal sealed class NotExceedSelectedItemValue<T> : 
-        DataBaseRule<T> 
+        DatabaseRule<T> 
         where T : BasicIdentity
     {
-        private readonly IDataBaseProvider<T> accountProvider;
+        private readonly IDatabaseProvider<T> accountProvider;
 
-        public NotExceedSelectedItemValue(IDataBaseProvider<T> accountProvider) :
+        public NotExceedSelectedItemValue(IDatabaseProvider<T> accountProvider) :
             base(accountProvider)
         {
             this.accountProvider = accountProvider;

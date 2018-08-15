@@ -1,19 +1,19 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using System;
 using System.Collections.Generic;
 
 namespace ExpenseTracker.Models
 {
-    internal class DataBaseProvider<T> : 
-        IDataBaseProvider<T> 
+    internal class DatabaseProvider<T> : 
+        IDatabaseProvider<T> 
         where T : BasicIdentity
     {
         private readonly IList<T> items = new List<T>();
 
         public IList<T> Items => items;
 
-        public event EventHandler<DataItemEventArgs<T>> DataBaseChanged;
+        public event EventHandler<DataItemEventArgs<T>> DatabaseChanged;
 
         public void AddItem(T item)
         {
@@ -72,7 +72,7 @@ namespace ExpenseTracker.Models
 
         private void OnDataBaseChange(DataItemEventArgs<T> e)
         {
-            DataBaseChanged?.Invoke(this, e);
+            DatabaseChanged?.Invoke(this, e);
         }
 
         private void OnItemChanged(object sender, IdentityPropertyChangedEventArgs e)

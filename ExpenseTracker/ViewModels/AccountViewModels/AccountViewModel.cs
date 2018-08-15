@@ -1,7 +1,7 @@
 ﻿using ExpenseTracker.Attributes;
 using ExpenseTracker.Commands;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Rules;
 using System;
 using System.Windows.Input;
@@ -11,14 +11,14 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
     internal sealed class AccountViewModel : NotifyDataErrorViewModel<Account>
     {
         private readonly Account account;
-        private readonly IDataBaseProvider<Account> accountProvider;
+        private readonly IDatabaseProvider<Account> accountProvider;
         private readonly Command addFundsCommand;
         private readonly Command deleteAccountCommand;
 
         private string addedFund = string.Empty;
         private int funds;
 
-        public AccountViewModel(IDataBaseProvider<Account> accountProvider, 
+        public AccountViewModel(IDatabaseProvider<Account> accountProvider, 
                                 IRuleProvider ruleProvider, 
                                 Account account) :
             base(ruleProvider)
@@ -30,7 +30,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
             addFundsCommand = new DelegateCommand(Add, () => CanAdd);
             deleteAccountCommand = new DelegateCommand(Delete);
 
-            accountProvider.DataBaseChanged += (sender, e) =>
+            accountProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Update)
                 {
@@ -43,7 +43,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
         }
 
         [ValidateRule("NotIntegerRule")]
-        [ValidateRule("NotNegativeAffterAddRule", DependentDataBaseItemName = nameof(Name))]
+        [ValidateRule("NotNegativeAffterAddRule", DependentDatabaseItemName = nameof(Name))]
         public string AddedFund
         {
             get => addedFund;

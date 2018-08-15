@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace ExpenseTracker.Models.DataBases
+namespace ExpenseTracker.Models.Databases
 {
-    internal interface IDataBaseProvider<T>
+    internal interface IDatabaseProvider<T>
     {
         IList<T> Items { get; }
 
-        event EventHandler<DataItemEventArgs<T>> DataBaseChanged;
+        event EventHandler<DataItemEventArgs<T>> DatabaseChanged;
 
         void AddItem(T item);
         T Find(string itemName);

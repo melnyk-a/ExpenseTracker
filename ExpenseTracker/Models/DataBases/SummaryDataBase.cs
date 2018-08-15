@@ -2,21 +2,21 @@
 using ExpenseTracker.Models.XmlDocuments;
 using System;
 
-namespace ExpenseTracker.Models.DataBases
+namespace ExpenseTracker.Models.Databases
 {
-    internal sealed class SummaryDataBase
+    internal sealed class SummaryDatabase
     {
-        private readonly IDataBaseProvider<Account> accountProvider = new DataBaseProvider<Account>();
-        private readonly IDataBaseProvider<Bill> billProvider = new DataBaseProvider<Bill>();
-        private readonly IDataBaseProvider<Expense> expenseProvider = new DataBaseProvider<Expense>();
+        private readonly IDatabaseProvider<Account> accountProvider = new DatabaseProvider<Account>();
+        private readonly IDatabaseProvider<Bill> billProvider = new DatabaseProvider<Bill>();
+        private readonly IDatabaseProvider<Expense> expenseProvider = new DatabaseProvider<Expense>();
 
-        public SummaryDataBase()
+        public SummaryDatabase()
         {
             Load(accountProvider);
             Load(expenseProvider);
             Load(billProvider);
 
-            accountProvider.DataBaseChanged += (sender, e) =>
+            accountProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Remove)
                 {
@@ -24,7 +24,7 @@ namespace ExpenseTracker.Models.DataBases
                 }
             };
 
-            expenseProvider.DataBaseChanged += (sender, e) =>
+            expenseProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Remove)
                 {
@@ -32,25 +32,25 @@ namespace ExpenseTracker.Models.DataBases
                 }
             };
 
-            billProvider.DataBaseChanged += (sender, e) =>
+            billProvider.DatabaseChanged += (sender, e) =>
             {
                 if(e.ChangedAction==ChangedAction.Add)
                 {
                     var account = accountProvider.Find(e.DataItem.AccountName);
                     account.Value = account.Value - Convert.ToInt32(e.DataItem.Value);
                 }
-                if (e.ChangedAction == Models.DataBases.ChangedAction.Remove)
+                if (e.ChangedAction == Models.Databases.ChangedAction.Remove)
                 {
                     ReturnFunds(e.DataItem.AccountName, e.DataItem.Value);
                 }
             };
         }
 
-        public IDataBaseProvider<Account> AccountProvider => accountProvider;
+        public IDatabaseProvider<Account> AccountProvider => accountProvider;
 
-        public IDataBaseProvider<Bill> BillProvider => billProvider;
+        public IDatabaseProvider<Bill> BillProvider => billProvider;
 
-        public IDataBaseProvider<Expense> ExpenseProvider => expenseProvider;
+        public IDatabaseProvider<Expense> ExpenseProvider => expenseProvider;
 
         private void DeleteBillByAccount(string billName)
         {
@@ -75,10 +75,10 @@ namespace ExpenseTracker.Models.DataBases
             }
         }
 
-        private void Load<T>(IDataBaseProvider<T> dataBaseProvider)
+        private void Load<T>(IDatabaseProvider<T> databaseProvider)
         {
-            XmlDataBaseDocument<T> dataBaseXml = new XmlDataBaseDocument<T>(dataBaseProvider);
-            dataBaseXml.Load();
+            XmlDataBaseDocument<T> databaseXml = new XmlDataBaseDocument<T>(databaseProvider);
+            databaseXml.Load();
         }
 
         private void ReturnFunds(string accountName, int value)

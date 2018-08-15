@@ -1,17 +1,17 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.ValidationRules;
 using System;
 
-namespace ExpenseTracker.Rules.DaraBaseRules
+namespace ExpenseTracker.Rules.DataBaseRules
 {
-    internal sealed class NotNegativeAffterAddRule<T> : 
-        DataBaseRule<T> 
+    internal sealed class NotNegativeAfterAddRule<T> : 
+        DatabaseRule<T> 
         where T : BasicIdentity
     {
-        private readonly IDataBaseProvider<T> accountProvider;
+        private readonly IDatabaseProvider<T> accountProvider;
 
-        public NotNegativeAffterAddRule(IDataBaseProvider<T> accountProvider) :
+        public NotNegativeAfterAddRule(IDatabaseProvider<T> accountProvider) :
             base(accountProvider)
         {
             this.accountProvider = accountProvider;

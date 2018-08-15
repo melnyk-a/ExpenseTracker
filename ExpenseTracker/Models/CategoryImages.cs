@@ -26,6 +26,6 @@ namespace ExpenseTracker.Models
             categoryImages.Add(@"..\..\Resources\Phone.png");
         }
 
-        public static IEnumerable<string> Pathes => categoryImages;
+        public static IEnumerable<string> Paths => categoryImages;
     }
 }

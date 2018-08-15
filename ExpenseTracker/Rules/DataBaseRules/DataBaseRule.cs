@@ -1,15 +1,14 @@
-﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+﻿using ExpenseTracker.Models.Databases;
 
-namespace ExpenseTracker.Rules.DaraBaseRules
+namespace ExpenseTracker.Rules.DataBaseRules
 {
-    internal abstract class DataBaseRule<T> : Rule 
+    internal abstract class DatabaseRule<T> : Rule 
     {
-        private readonly IDataBaseProvider<T> dataBase;
+        private readonly IDatabaseProvider<T> database;
 
-        public DataBaseRule(IDataBaseProvider<T> dataBase)
+        public DatabaseRule(IDatabaseProvider<T> dataBase)
         {
-            this.dataBase = dataBase;
+            this.database = dataBase;
         }
 
         public abstract void Check(string value, string name);

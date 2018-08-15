@@ -2,7 +2,7 @@
 using ExpenseTracker.Commands;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Rules;
 using ExpenseTracker.ViewModels.ViewModelFactories;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
 {
     internal sealed class AccountsWindowViewModel : NotifyDataErrorViewModel<Account>
     {
-        private readonly IDataBaseProvider<Account> accountProvider;
+        private readonly IDatabaseProvider<Account> accountProvider;
         private readonly ObservableCollection<ViewModel> accountList = new ObservableCollection<ViewModel>();
         private readonly Command addAccountCommand;
         private readonly ObservableCollection<string> icons = new ObservableCollection<string>();
@@ -21,7 +21,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
         private string name = string.Empty;
         private object selectedIcon;
 
-        public AccountsWindowViewModel(IDataBaseProvider<Account> accountProvider, 
+        public AccountsWindowViewModel(IDatabaseProvider<Account> accountProvider, 
                                        IRuleProvider ruleProvider, 
                                        IViewModelFactory viewModelFactory) :
             base(ruleProvider)
@@ -34,7 +34,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
             LoadFromAccountProvider();
             LoadAccountIcons();
 
-            accountProvider.DataBaseChanged += (sender, e) =>
+            accountProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Add)
                 {
@@ -107,7 +107,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
 
         private void LoadAccountIcons()
         {
-            foreach (string path in AccountImages.Pathes)
+            foreach (string path in AccountImages.Paths)
             {
                 icons.Add(path);
             }

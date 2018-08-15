@@ -1,6 +1,6 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
-using ExpenseTracker.Rules.DaraBaseRules;
+using ExpenseTracker.Models.Databases;
+using ExpenseTracker.Rules.DataBaseRules;
 using ExpenseTracker.Rules.SimpleRules;
 
 namespace ExpenseTracker.Rules.RuleFactories
@@ -9,22 +9,22 @@ namespace ExpenseTracker.Rules.RuleFactories
         IRuleFactory 
         where T : BasicIdentity
     {
-        private readonly IDataBaseProvider<T> dataBaseProvider;
+        private readonly IDatabaseProvider<T> databaseProvider;
 
-        public RuleFactory(IDataBaseProvider<T> dataBaseProvider)
+        public RuleFactory(IDatabaseProvider<T> databaseProvider)
         {
-            this.dataBaseProvider = dataBaseProvider;
+            this.databaseProvider = databaseProvider;
         }
 
         public Rule CreateNotEmptyRule() => new NotEmptyRule();
 
-        public Rule CreateNotExceedSelectedItemValue() => new NotExceedSelectedItemValue<T>(dataBaseProvider);
+        public Rule CreateNotExceedSelectedItemValue() => new NotExceedSelectedItemValue<T>(databaseProvider);
 
-        public Rule CreateNotExistRule() => new NotExistRule<T>(dataBaseProvider);
+        public Rule CreateNotExistRule() => new NotExistRule<T>(databaseProvider);
 
         public Rule CreateNotIntegerRule() => new NotIntegerRule();
 
-        public Rule CreateNotNegativeAffterAddRule() => new NotNegativeAffterAddRule<T>(dataBaseProvider);
+        public Rule CreateNotNegativeAffterAddRule() => new NotNegativeAfterAddRule<T>(databaseProvider);
 
         public Rule CreateNotNegativeRule() => new NotNagativeRule();
 

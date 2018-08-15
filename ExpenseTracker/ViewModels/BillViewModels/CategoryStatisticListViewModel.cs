@@ -1,5 +1,5 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.Models.SelectedCategories;
 using ExpenseTracker.ViewModels.ViewModelFactories;
 using System.Collections.Generic;
@@ -10,13 +10,13 @@ namespace ExpenseTracker.ViewModels.BillViewModels
     internal sealed class CategoryStatisticListViewModel : NotifyPropertyChangedViewModel
     {
         private readonly ObservableCollection<ViewModel> expenseCategoryStatistics = new ObservableCollection<ViewModel>();
-        private readonly IDataBaseProvider<Expense> expenseProvider;
+        private readonly IDatabaseProvider<Expense> expenseProvider;
         private readonly ISelectedExpenseManager selectedManager;
         private readonly IViewModelFactory viewModelFactory;
 
         private CatagoryStatisticViewModel selectedCategory;
 
-        public CategoryStatisticListViewModel(IDataBaseProvider<Expense> expenseProvider, 
+        public CategoryStatisticListViewModel(IDatabaseProvider<Expense> expenseProvider, 
                                               IViewModelFactory viewModelFactory, 
                                               ISelectedExpenseManager selectedManager
         )
@@ -27,7 +27,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
 
             LoadFromExpenseProvider();
 
-            expenseProvider.DataBaseChanged += (sender, e) =>
+            expenseProvider.DatabaseChanged += (sender, e) =>
             {
                 if (e.ChangedAction == ChangedAction.Add)
                 {

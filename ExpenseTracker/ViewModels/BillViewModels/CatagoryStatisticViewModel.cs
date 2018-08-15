@@ -1,13 +1,13 @@
 ﻿using ExpenseTracker.Attributes;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using ExpenseTracker.ViewModels.BillViewModels;
 
 namespace ExpenseTracker.ViewModels.BillViewModels
 {
     internal sealed class CatagoryStatisticViewModel : NotifyPropertyChangedViewModel
     {
-        private readonly IDataBaseProvider<Bill> billProvider;
+        private readonly IDatabaseProvider<Bill> billProvider;
         private readonly Expense expense;
 
         private ExpenseLimit expenseLimit;
@@ -15,7 +15,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
         private int percentage;
         private double sumOfBills;
 
-        public CatagoryStatisticViewModel(IDataBaseProvider<Bill> billProvider,
+        public CatagoryStatisticViewModel(IDatabaseProvider<Bill> billProvider,
                                           Expense expense
         )
         {
@@ -30,7 +30,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
                   Limit = e.Identity.Value;
               };
 
-            billProvider.DataBaseChanged += (sender, e) =>
+            billProvider.DatabaseChanged += (sender, e) =>
               {
                   if (e.ChangedAction == ChangedAction.Add || e.ChangedAction == ChangedAction.Remove)
                   {

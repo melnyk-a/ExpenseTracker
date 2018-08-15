@@ -1,6 +1,6 @@
 ﻿using ExpenseTracker.Commands;
 using ExpenseTracker.Models.BasicIdentities;
-using ExpenseTracker.Models.DataBases;
+using ExpenseTracker.Models.Databases;
 using System;
 using System.Windows.Input;
 
@@ -9,10 +9,10 @@ namespace ExpenseTracker.ViewModels.BillViewModels
     internal sealed class BillViewModel : ViewModel
     {
         private readonly Bill bill;
-        private readonly IDataBaseProvider<Bill> billProvider;
+        private readonly IDatabaseProvider<Bill> billProvider;
         private readonly ICommand deleteBillCommand;
 
-        public BillViewModel(IDataBaseProvider<Bill> billProvider, Bill bill)
+        public BillViewModel(IDatabaseProvider<Bill> billProvider, Bill bill)
         {
             this.bill = bill;
             this.billProvider = billProvider;
