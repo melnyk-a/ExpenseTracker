@@ -31,7 +31,7 @@ namespace ExpenseTracker.ViewModels
         public object Current
         {
             get => current;
-            set => SetProperty(ref current, value);
+            private set => SetProperty(ref current, value);
         }
 
         public ICommand ShowAccountsCommand => showAccountsCommand;
