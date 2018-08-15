@@ -19,7 +19,7 @@ namespace ExpenseTracker.Models
         {
             items.Add(item);
             item.IdentityChanged += new EventHandler<IdentityPropertyChangedEventArgs>(OnItemChanged);
-            OnDataBaseChange(new DataItemEventArgs<T>(item, ChangedAction.Add));
+            OnDatabaseChange(new DataItemEventArgs<T>(item, ChangedAction.Add));
         }
 
         public bool Contains(string itemName)
@@ -46,7 +46,7 @@ namespace ExpenseTracker.Models
                 {
                     if (items.Remove(currentItem))
                     {
-                        OnDataBaseChange(new DataItemEventArgs<T>(currentItem, ChangedAction.Remove));
+                        OnDatabaseChange(new DataItemEventArgs<T>(currentItem, ChangedAction.Remove));
                         item.IdentityChanged -= new EventHandler<IdentityPropertyChangedEventArgs>(OnItemChanged);
                     }
                     break;
@@ -70,14 +70,14 @@ namespace ExpenseTracker.Models
             return foundAccount;
         }
 
-        private void OnDataBaseChange(DataItemEventArgs<T> e)
+        private void OnDatabaseChange(DataItemEventArgs<T> e)
         {
             DatabaseChanged?.Invoke(this, e);
         }
 
         private void OnItemChanged(object sender, IdentityPropertyChangedEventArgs e)
         {
-            OnDataBaseChange(new DataItemEventArgs<T>((T)sender, ChangedAction.Update));
+            OnDatabaseChange(new DataItemEventArgs<T>((T)sender, ChangedAction.Update));
         }
     }
 }

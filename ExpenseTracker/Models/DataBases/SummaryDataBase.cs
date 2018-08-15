@@ -77,7 +77,7 @@ namespace ExpenseTracker.Models.Databases
 
         private void Load<T>(IDatabaseProvider<T> databaseProvider)
         {
-            XmlDataBaseDocument<T> databaseXml = new XmlDataBaseDocument<T>(databaseProvider);
+            XmlDatabaseDocument<T> databaseXml = new XmlDatabaseDocument<T>(databaseProvider);
             databaseXml.Load();
         }
 

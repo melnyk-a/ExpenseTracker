@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace ExpenseTracker.Models.XmlDocuments
 {
-    internal sealed class XmlDataBaseDocument<T>
+    internal sealed class XmlDatabaseDocument<T>
     {
         private readonly string constructorAttributeName = "Name";
         private readonly IDatabaseProvider<T> databaseProvider;
@@ -16,15 +16,15 @@ namespace ExpenseTracker.Models.XmlDocuments
         private readonly Type genericType;
         private readonly Type type;
 
-        public XmlDataBaseDocument(IDatabaseProvider<T> dataBaseProvider)
+        public XmlDatabaseDocument(IDatabaseProvider<T> databaseProvider)
         {
-            this.databaseProvider = dataBaseProvider;
-            type = dataBaseProvider.GetType();
+            this.databaseProvider = databaseProvider;
+            type = databaseProvider.GetType();
             genericType = type.GenericTypeArguments[0];
             genericName = genericType.Name;
             fileName = $"{type.Name.Remove(type.Name.Length - 2)}{genericName}.xml";
 
-            dataBaseProvider.DatabaseChanged += (sender, e) =>
+            databaseProvider.DatabaseChanged += (sender, e) =>
               {
                   Save();
               };

@@ -16,9 +16,9 @@ namespace ExpenseTracker.ViewModels.BillViewModels
         private readonly IViewModelFactory viewModelFactory;
 
         private ObservableCollection<ViewModel> selectedBills = new ObservableCollection<ViewModel>();
-       
-        public BillListViewModel(IDatabaseProvider<Bill> billProvider, 
-                                 IViewModelFactory viewModelFactory, 
+
+        public BillListViewModel(IDatabaseProvider<Bill> billProvider,
+                                 IViewModelFactory viewModelFactory,
                                  ISelectedExpenseProvider selectedExpense
         )
         {

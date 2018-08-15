@@ -1,6 +1,6 @@
 ﻿using ExpenseTracker.Models.BasicIdentities;
 using ExpenseTracker.Models.Databases;
-using ExpenseTracker.Rules.DataBaseRules;
+using ExpenseTracker.Rules.DatabaseRules;
 using ExpenseTracker.Rules.SimpleRules;
 
 namespace ExpenseTracker.Rules.RuleFactories

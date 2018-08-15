@@ -16,8 +16,8 @@ namespace ExpenseTracker.ViewModels.BillViewModels
 
         private CatagoryStatisticViewModel selectedCategory;
 
-        public CategoryStatisticListViewModel(IDatabaseProvider<Expense> expenseProvider, 
-                                              IViewModelFactory viewModelFactory, 
+        public CategoryStatisticListViewModel(IDatabaseProvider<Expense> expenseProvider,
+                                              IViewModelFactory viewModelFactory,
                                               ISelectedExpenseManager selectedManager
         )
         {

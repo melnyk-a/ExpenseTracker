@@ -3,7 +3,7 @@ using ExpenseTracker.Models.Databases;
 using ExpenseTracker.ValidationRules;
 using System;
 
-namespace ExpenseTracker.Rules.DataBaseRules
+namespace ExpenseTracker.Rules.DatabaseRules
 {
     internal sealed class NotNegativeAfterAddRule<T> : 
         DatabaseRule<T> 

@@ -3,20 +3,20 @@
 namespace ExpenseTracker.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
-    internal sealed class DataBaseValidateRuleAttribute : ValidationAttribute
+    internal sealed class DatabaseValidateRuleAttributeAttribute : ValidationAttribute
     {
-        private readonly string dependentDataBaseItemName;
+        private readonly string dependentDatabaseItemName;
         private readonly string rule;
 
-        public DataBaseValidateRuleAttribute(string rule, 
-            string dependentDataBaseItemName
+        public DatabaseValidateRuleAttributeAttribute(string rule, 
+            string dependentDatabaseItemName
         )
         {
             this.rule = rule;
-            this.dependentDataBaseItemName = dependentDataBaseItemName;
+            this.dependentDatabaseItemName = dependentDatabaseItemName;
         }
 
-        public string DependentDataBaseItemName => dependentDataBaseItemName;
+        public string DependentDatabaseItemName => dependentDatabaseItemName;
 
         public string Rule => rule;
     }
