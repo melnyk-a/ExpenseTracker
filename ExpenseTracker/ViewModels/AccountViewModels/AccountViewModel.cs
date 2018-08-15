@@ -62,10 +62,7 @@ namespace ExpenseTracker.ViewModels.AccountViewModels
         public int Funds
         {
             get => funds;
-            private set
-            {
-                SetProperty(ref funds, value);
-            }
+            private set => SetProperty(ref funds, value);
         }
 
         public string IconSourse => account.ImagePath;

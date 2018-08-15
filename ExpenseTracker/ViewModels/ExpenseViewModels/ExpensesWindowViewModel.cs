@@ -76,20 +76,14 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
         public string Name
         {
             get => name;
-            set
-            {
-                SetProperty(ref name, value);
-            }
+            set => SetProperty(ref name, value);
         }
 
         [ValidateRule("NotSelectedRule", Name = "Expanse icon")]
         public object SelectedIcon
         {
             get => selectedIcon;
-            set
-            {
-                SetProperty(ref selectedIcon, value);
-            }
+            set => SetProperty(ref selectedIcon, value);
         }
 
         void AddExpense()

@@ -61,10 +61,7 @@ namespace ExpenseTracker.ViewModels.BillViewModels
         public CatagoryStatisticViewModel SelectedCategory
         {
             get => selectedCategory;
-            set
-            {
-                SetProperty(ref selectedCategory, value);
-            }
+            set => SetProperty(ref selectedCategory, value);
         }
 
         private void LoadFromExpenseProvider()

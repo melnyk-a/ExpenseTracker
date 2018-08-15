@@ -53,10 +53,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
         public int Limit
         {
             get => limit;
-            private set
-            {
-                SetProperty(ref limit, value);
-            }
+            private set => SetProperty(ref limit, value);
         }
 
         public string Name => expense.Name;
@@ -66,10 +63,7 @@ namespace ExpenseTracker.ViewModels.ExpenseViewModels
         public string SetLimit
         {
             get => setlimit;
-            set
-            {
-                SetProperty(ref setlimit, value);
-            }
+            set => SetProperty(ref setlimit, value);
         }
 
         [RaiseCanExecuteDependsUpon(nameof(CanSet))]
